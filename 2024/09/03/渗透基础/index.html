@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+
+<html theme="dark" showBanner="true" hasBanner="false" > 
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet">
+<link href="https://cdn.staticfile.org/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet">
+<script src="/js/color.global.min.js" ></script>
+<script src="/js/load-settings.js" ></script>
+<head>
+  <meta charset="utf-8">
+  
+  
+  
+
+  
+  <title>渗透基础 | T1@n的blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="preload" href="/css/fonts/Roboto-Regular.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+  <link rel="preload" href="/css/fonts/Roboto-Bold.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+
+  <meta name="description" content="遍历应用程序遍历应用程序 查看源代码- 使用您的浏览器查看网站的可读源代码 检查器- 了解如何检查页面元素并进行更改以查看通常被阻止的内容 调试器- 检查并控制页面 JavaScript 的流程 网络- 查看页面发出的所有网络请求  探索网站检查网站或 Web 应用程序时的任务是发现可能存在漏洞的功能，并尝试利用这些功能来评估是否存在漏洞。这些功能通常是网站的一部分，需要与用户进行交互。查找网站的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="渗透基础">
+<meta property="og:url" content="http://example.com/2024/09/03/%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:site_name" content="T1@n的blog">
+<meta property="og:description" content="遍历应用程序遍历应用程序 查看源代码- 使用您的浏览器查看网站的可读源代码 检查器- 了解如何检查页面元素并进行更改以查看通常被阻止的内容 调试器- 检查并控制页面 JavaScript 的流程 网络- 查看页面发出的所有网络请求  探索网站检查网站或 Web 应用程序时的任务是发现可能存在漏洞的功能，并尝试利用这些功能来评估是否存在漏洞。这些功能通常是网站的一部分，需要与用户进行交互。查找网站的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-09-03T03:19:17.000Z">
+<meta property="article:modified_time" content="2024-09-03T03:21:26.009Z">
+<meta property="article:author" content="T1@n">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="T1@n的blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: light)" href="/images/favicon-light-192.png" sizes="192x192">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-32.png" sizes="32x32">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-128.png" sizes="128x128">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-180.png" sizes="180x180">
+    <link rel="icon" media="(prefers-color-scheme: dark)" href="/images/favicon-dark-192.png" sizes="192x192">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  
+   
+  <div id="main-grid" class="  ">
+    <div id="nav" class=""  >
+      <navbar id="navbar">
+  <nav id="title-nav">
+    <a href="/">
+      <div id="vivia-logo">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      <div>T1@n的blog </div>
+    </a>
+  </nav>
+  <nav id="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    <a id="theme-btn" class="nav-icon">
+      <span class="light-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M438.5-829.913v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-829.913Zm0 747.826v-48q0-17.452 11.963-29.476 11.964-12.024 29.326-12.024 17.363 0 29.537 12.024t12.174 29.476v48q0 17.452-11.963 29.476-11.964 12.024-29.326 12.024-17.363 0-29.537-12.024T438.5-82.087ZM877.913-438.5h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537t29.476-12.174h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T877.913-438.5Zm-747.826 0h-48q-17.452 0-29.476-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T82.087-521.5h48q17.452 0 29.476 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T130.087-438.5Zm660.174-290.87-34.239 32q-12.913 12.674-29.565 12.174-16.653-.5-29.327-13.174-12.674-12.673-12.554-28.826.12-16.152 12.794-28.826l33-35q12.913-12.674 30.454-12.674t30.163 12.847q12.709 12.846 12.328 30.826-.38 17.98-13.054 30.653ZM262.63-203.978l-32 34q-12.913 12.674-30.454 12.674t-30.163-12.847q-12.709-12.846-12.328-30.826.38-17.98 13.054-30.653l33.239-31q12.913-12.674 29.565-12.174 16.653.5 29.327 13.174 12.674 12.673 12.554 28.826-.12 16.152-12.794 28.826Zm466.74 33.239-32-33.239q-12.674-12.913-12.174-29.565.5-16.653 13.174-29.327 12.673-12.674 28.826-13.054 16.152-.38 28.826 12.294l35 33q12.674 12.913 12.674 30.454t-12.847 30.163q-12.846 12.709-30.826 12.328-17.98-.38-30.653-13.054ZM203.978-697.37l-34-33q-12.674-12.913-13.174-29.945-.5-17.033 12.174-29.707t31.326-13.293q18.653-.62 31.326 13.054l32 34.239q11.674 12.913 11.174 29.565-.5 16.653-13.174 29.327-12.673 12.674-28.826 12.554-16.152-.12-28.826-12.794ZM480-240q-100 0-170-70t-70-170q0-100 70-170t170-70q100 0 170 70t70 170q0 100-70 170t-170 70Zm-.247-82q65.703 0 111.475-46.272Q637-414.544 637-480.247t-45.525-111.228Q545.95-637 480.247-637t-111.475 45.525Q323-545.95 323-480.247t45.525 111.975Q414.05-322 479.753-322ZM481-481Z"/></svg></span>
+      <span class="dark-mode-icon"><svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M480.239-116.413q-152.63 0-258.228-105.478Q116.413-327.37 116.413-480q0-130.935 77.739-227.435t206.304-125.043q43.022-9.631 63.87 10.869t3.478 62.805q-8.891 22.043-14.315 44.463-5.424 22.42-5.424 46.689 0 91.694 64.326 155.879 64.325 64.186 156.218 64.186 24.369 0 46.978-4.946 22.609-4.945 44.413-14.076 42.826-17.369 62.967 1.142 20.142 18.511 10.511 61.054Q807.174-280 712.63-198.206q-94.543 81.793-232.391 81.793Zm0-95q79.783 0 143.337-40.217 63.554-40.218 95.793-108.283-15.608 4.044-31.097 5.326-15.49 1.283-31.859.805-123.706-4.066-210.777-90.539-87.071-86.473-91.614-212.092-.24-16.369.923-31.978 1.164-15.609 5.446-30.978-67.826 32.478-108.282 96.152Q211.652-559.543 211.652-480q0 111.929 78.329 190.258 78.329 78.329 190.258 78.329ZM466.13-465.891Z"/></svg></span>
+    </a>
+    
+      <a id="nav-rss-link" class="nav-icon mobile-hide" href="/atom.xml" title="RSS 订阅">
+        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M198-120q-25.846 0-44.23-18.384-18.384-18.385-18.384-44.23 0-25.846 18.384-44.23 18.384-18.385 44.23-18.385 25.846 0 44.23 18.385 18.384 18.384 18.384 44.23 0 25.845-18.384 44.23Q223.846-120 198-120Zm538.385 0q-18.846 0-32.923-13.769-14.076-13.769-15.922-33.23-8.692-100.616-51.077-188.654-42.385-88.039-109.885-155.539-67.5-67.501-155.539-109.885Q283-663.462 182.385-672.154q-19.461-1.846-33.23-16.23-13.769-14.385-13.769-33.846t14.076-32.922q14.077-13.461 32.923-12.23 120.076 8.692 226.038 58.768 105.961 50.077 185.73 129.846 79.769 79.769 129.846 185.731 50.077 105.961 58.769 226.038 1.231 18.846-12.538 32.922Q756.461-120 736.385-120Zm-252 0q-18.231 0-32.423-13.461t-18.653-33.538Q418.155-264.23 348.886-333.5q-69.27-69.27-166.501-84.423-20.077-4.462-33.538-18.961-13.461-14.5-13.461-33.346 0-19.076 13.884-33.23 13.884-14.153 33.115-10.922 136.769 15.384 234.384 112.999 97.615 97.615 112.999 234.384 3.231 19.23-10.538 33.115Q505.461-120 484.385-120Z"/></svg>
+      </a>
+    
+    <div id="nav-menu-btn" class="nav-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20"><path d="M177.37-252.282q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Zm0-186.218q-17.453 0-29.477-11.963-12.024-11.964-12.024-29.326 0-17.363 12.024-29.537T177.37-521.5h605.26q17.453 0 29.477 11.963 12.024 11.964 12.024 29.326 0 17.363-12.024 29.537T782.63-438.5H177.37Zm0-186.217q-17.453 0-29.477-11.964-12.024-11.963-12.024-29.326t12.024-29.537q12.024-12.174 29.477-12.174h605.26q17.453 0 29.477 11.964 12.024 11.963 12.024 29.326t-12.024 29.537q-12.024 12.174-29.477 12.174H177.37Z"/></svg>
+    </div>
+  </nav>
+</navbar>
+<div id="nav-dropdown" class="hidden">
+  <div id="dropdown-link-list">
+    
+      <a class="nav-dropdown-link" href="/">Home</a>
+    
+      <a class="nav-dropdown-link" href="/archives">Archives</a>
+    
+      <a class="nav-dropdown-link" href="/about">About</a>
+    
+    
+      <a class="nav-dropdown-link" href="/atom.xml" title="RSS 订阅">RSS</a>
+     
+    </div>
+</div>
+<script>
+  let dropdownBtn = document.getElementById("nav-menu-btn");
+  let dropdownEle = document.getElementById("nav-dropdown");
+  dropdownBtn.onclick = function() {
+    dropdownEle.classList.toggle("hidden");
+  }
+</script>
+    </div>
+    <div id="sidebar-wrapper">
+      <sidebar id="sidebar">
+  
+    <div class="widget-wrap">
+  <div class="info-card">
+    <div class="avatar">
+      
+        <image src=/image/avatar.png></image>
+      
+      <div class="img-dim"></div>
+    </div>
+    <div class="info">
+      <div class="username">T1@n </div>
+      <div class="dot"></div>
+      <div class="subtitle">网络安全 </div>
+      <div class="link-list">
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://twitter.com" title="Twitter"><i class="fa-brands fa-twitter"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://qm.qq.com/cgi-bin/qm/qr?k=-pr7mz--Jz7XA5njimaed_3BoESRAnDD" title="QQ"><i class="fa-brands fa-Steam"></i></a>
+        
+          <a class="link-btn" target="_blank" rel="noopener" href="https://github.com" title="GitHub"><i class="fa-brands fa-github"></i></a>
+         
+      </div>  
+    </div>
+  </div>
+</div>
+
+  
+  <div class="sticky">
+    
+      
+
+
+  <div class="widget-wrap">
+    <div class="widget">
+      <h3 class="widget-title">分类</h3>
+      <div class="category-box">
+            <a class="category-link" href="/categories/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/">
+                攻防世界
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/Java/">
+                Java
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/">
+                网络安全基础
+                <div class="category-count">1</div>
+            </a>
+        
+            <a class="category-link" href="/categories/%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/">
+                渗透基础
+                <div class="category-count">1</div>
+            </a>
+        </div>
+    </div>
+  </div>
+
+
+    
+      
+
+    
+  </div>
+</sidebar>
+    </div>
+    <div id="content-body">
+       
+
+
+<article id="post-渗透基础" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  
+    
+   
+  <div class="article-inner">
+    <div class="article-main">
+      <header class="article-header">
+        
+<div class="main-title-bar">
+  <div class="main-title-dot"></div>
+  
+    
+      <h1 class="p-name article-title" itemprop="headline name">
+        渗透基础
+      </h1>
+    
+  
+</div>
+
+        <div class='meta-info-bar'>
+          <div class="meta-info">
+  <time class="dt-published" datetime="2024-09-03T03:19:17.000Z" itemprop="datePublished">2024-09-03</time>
+</div>
+          <div class="need-seperator meta-info">
+            <div class="meta-cate-flex">
+  
+  <a class="meta-cate-link" href="/categories/%E6%B8%97%E9%80%8F%E5%9F%BA%E7%A1%80/">渗透基础</a>
+   
+</div>
+  
+          </div>
+          <div class="wordcount need-seperator meta-info">
+            13k 词 
+          </div>
+        </div>
+        
+      </header>
+      <div class="e-content article-entry" itemprop="articleBody">
+        
+          <h4 id="遍历应用程序"><a href="#遍历应用程序" class="headerlink" title="遍历应用程序"></a>遍历应用程序</h4><h5 id="遍历应用程序-1"><a href="#遍历应用程序-1" class="headerlink" title="遍历应用程序"></a>遍历应用程序</h5><ul>
+<li><strong>查看源代码</strong>- 使用您的浏览器查看网站的可读源代码</li>
+<li><strong>检查器</strong>- 了解如何检查页面元素并进行更改以查看通常被阻止的内容</li>
+<li><strong>调试器</strong>- 检查并控制页面 JavaScript 的流程</li>
+<li><strong>网络</strong>- 查看页面发出的所有网络请求</li>
+</ul>
+<h5 id="探索网站"><a href="#探索网站" class="headerlink" title="探索网站"></a>探索网站</h5><p>检查网站或 Web 应用程序时的任务是发现可能存在漏洞的功能，并尝试利用这些功能来评估是否存在漏洞。这些功能通常是网站的一部分，需要与用户进行交互。查找网站的交互部分可能与手动检查网站的 JavaScript 一样简单，只需找到登录表单即可。</p>
+<h5 id="查看页面源代码"><a href="#查看页面源代码" class="headerlink" title="查看页面源代码"></a>查看页面源代码</h5><p>页面源代码是每次发出请求时从 Web 服务器返回到我们的浏览器&#x2F;客户端的人性化代码<br>返回的代码由 HTML（超文本标记语言）、CSS（层叠样式表）和 JavaScript 组成，它告诉我们的浏览器显示什么内容、如何显示，并添加与 JavaScript 交互的元素、<br>在页面顶部，代码以 开头’<!--'和结尾，'-->‘这些是注释<br>HTML 中指向不同页面的链接写在锚标记（以 开头的 HTML 元素<code>&lt;a</code>）中，而您将被定向到的链接存储在 href 属性中。<br>进一步查看页面源代码，会发现一个隐藏的链接，指向以“secr”开头的页面，查看此链接以获取另一个标志。在现实情况下，您显然不会获得标志，但可能会发现企业用于存储公司&#x2F;员工&#x2F;客户信息的某些私人区域</p>
+<h5 id="开发者工具-检查器"><a href="#开发者工具-检查器" class="headerlink" title="开发者工具-检查器"></a>开发者工具-检查器</h5><p>页面源代码并不总是代表网页上显示的内容；这是因为 CSS、JavaScript 和用户交互可以改变页面的内容和样式，这意味着我们需要一种方法来查看此时浏览器窗口中显示的内容。元素检查器通过为我们提供网站上当前内容的实时表示来帮助我们实现这一点<br>找到DIV具有该类的元素premium-customer-blocker并单击它。您将在样式框中看到适用于此元素的所有 CSS 样式，例如margin-top: 60px和text-align: center。我们感兴趣的样式是display: block。如果单击单词block，则可以键入自己选择的值。尝试输入none，这将使框消失，显示其下方的内容和一个标志。如果元素没有显示字段，您可以单击最后一种样式下方并添加您自己的样式。</p>
+<h5 id="开发者工具-调试器"><a href="#开发者工具-调试器" class="headerlink" title="开发者工具-调试器"></a>开发者工具-调试器</h5><p>用于调试 JavaScript，在 Firefox 和 Safari 中，此功能称为调试器，但在 Google Chrome 中，它称为源。在这两种浏览器中，左侧都会显示当前网页正在使用的所有资源的列表。如果您点击资产文件夹，您将看到一个名为 flash.min.js 的文件。点击此文件将显示 JavaScript 文件的内容。<br>以使用“Pretty Print”选项恢复一些格式，它看起来像两个括号 { }，使其更具可读性，尽管由于混淆，仍然很难理解文件中发生了什么。如果您滚动到 flash.min.js 文件的底部，您将看到以下行：flash ‘remove’ ();<br>JavaScript 代码就是从页面上移除红色弹出窗口。我们可以利用调试器的另一个功能，即 断点。这些是代码中的点，我们可以强制浏览器停止处理 JavaScript 并暂停当前执行。<br>如果您单击包含上述代码的行号，您会注意到它变成蓝色；您现在已在此行插入断点。现在尝试刷新页面，您会注意到红色框停留在页面上而不是消失，并且它包含一个标志。 </p>
+<h5 id="开发者工具-网络"><a href="#开发者工具-网络" class="headerlink" title="开发者工具-网络"></a>开发者工具-网络</h5><p>打开网络选项卡，尝试填写联系表单并按下 发送消息按钮。您会注意到网络选项卡中有一个事件，这是使用名为 AJAX 的方法在后台提交的表单。AJAX 是一种在 Web 应用程序后台发送和接收网络数据的方法，不会通过更改当前网页进行干扰。</p>
+<h4 id="内容发现"><a href="#内容发现" class="headerlink" title="内容发现"></a>内容发现</h4><h5 id="什么是内容发现"><a href="#什么是内容发现" class="headerlink" title="什么是内容发现"></a>什么是内容发现</h5><p>种发现网站上内容的主要方式。手动、自动和OSINT（开源情报）。</p>
+<h5 id="手动发现-Robots-txt"><a href="#手动发现-Robots-txt" class="headerlink" title="手动发现-Robots.txt"></a>手动发现-Robots.txt</h5><p>robots.txt 文件是一个文档，它告诉搜索引擎哪些页面可以显示在搜索结果中，哪些页面不可以显示，或者禁止特定搜索引擎抓取整个网站。限制某些网站区域不显示在搜索引擎结果中是一种常见的做法。这些页面可能是管理门户或网站客户专用的文件。此文件为我们提供了网站所有者不希望我们作为渗透测试人员发现的位置列表。</p>
+<h5 id="手动发现-网站图标"><a href="#手动发现-网站图标" class="headerlink" title="手动发现-网站图标"></a>手动发现-网站图标</h5><p>使用框架构建网站时，安装中的图标会被遗留，如果网站开发人员没有将其替换为自定义图标，这可以让我们了解正在使用的框架。OWASP托管一个常用框架图标数据库，您可以使用它来检查目标图标 <a target="_blank" rel="noopener" href="https://wiki.owasp.org/index.php/OWASP_favicon_database">https://wiki.owasp.org/index.php/OWASP_favicon_database</a>。<br>打开 Firefox 并输入 URL  <a target="_blank" rel="noopener" href="https://static-labs.tryhackme.cloud/sites/favicon/">https://static-labs.tryhackme.cloud/sites/favicon/</a> ，在这里你会看到一个基本网站，上面有一条注释，写着“网站即将推出…”，如果你查看你的标签，你会注意到一个图标，确认该网站正在使用图标。查看页面源代码，您会看到第六行包含指向 images&#x2F;favicon.ico 文件的链接。如果你在 AttackBox 上运行以下命令，它将下载 favicon 并获取其 md5 哈希值，然后你可以在<br><a target="_blank" rel="noopener" href="https://wiki.owasp.org/index.php/OWASP_favicon_database">https://wiki.owasp.org/index.php/OWASP_favicon_database</a>上查找该值。</p>
+<h5 id="手动发现-Sitemap-xml"><a href="#手动发现-Sitemap-xml" class="headerlink" title="手动发现-Sitemap.xml"></a>手动发现-Sitemap.xml</h5><p>sitemap.xml 文件列出了网站所有者希望在搜索引擎上列出的所有文件。这些文件有时可能包含网站中导航起来有点困难的部分，甚至列出当前网站不再使用但仍在后台运行的一些旧网页。</p>
+<h5 id="手动发现-HTTP标头"><a href="#手动发现-HTTP标头" class="headerlink" title="手动发现-HTTP标头"></a>手动发现-HTTP标头</h5><p>当我们向 Web 服务器发出请求时，服务器会返回各种 HTTP 标头。这些标头有时可能包含有用的信息，例如 Web 服务器软件以及可能正在使用的编程&#x2F;脚本语言。<br>针对 Web 服务器运行以下 curl 命令，其中-v开关启用详细模式，它将输出标头</p>
+<h5 id="手动发现-框架堆栈"><a href="#手动发现-框架堆栈" class="headerlink" title="手动发现-框架堆栈"></a>手动发现-框架堆栈</h5><p>查看 Acme IT Support 网站 ( <a target="_blank" rel="noopener" href="http://10.10.92.122/">http://10.10.92.122</a> ) 的页面源代码，您会在每个页面末尾看到一条注释，其中包含页面加载时间以及指向框架网站的链接，即 <a target="_blank" rel="noopener" href="https://static-labs.tryhackme.cloud/sites/thm-web-framework">https://static-labs.tryhackme.cloud/sites/thm-web-framework</a>。让我们看看该网站。查看文档页面会为我们提供框架管理门户的路径，如果在 Acme IT Support 网站上查看，则会给我们一个标记。</p>
+<h5 id="OSINT-Google黑客-Dorking"><a href="#OSINT-Google黑客-Dorking" class="headerlink" title="OSINT-Google黑客&#x2F;Dorking"></a>OSINT-Google黑客&#x2F;Dorking</h5><p>利用 Google 的高级搜索引擎功能，让您挑选出自定义内容。例如，您可以使用 site  <strong>:</strong> 过滤器挑选出来自特定域名的结果，例如 (site: <a target="_blank" rel="noopener" href="http://tryhackme.com/">tryhackme.com</a> )，然后您可以将其与某些搜索词匹配，例如单词 admin (site:tryhackme.com admin)，这样只会返回来自 <a target="_blank" rel="noopener" href="http://tryhackme.com/">tryhackme.com</a> 网站的结果，其内容中包含单词 admin。您也可以组合多个过滤器。以下是您可以使用的更多过滤器的示例：</p>
+<table>
+<thead>
+<tr>
+<th>site</th>
+<th>site:tryhackme.com</th>
+<th>仅返回指定网站地址的结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>inurl</td>
+<td>inurl:admin</td>
+<td>返回 URL 中包含指定单词的结果</td>
+</tr>
+<tr>
+<td>filetype</td>
+<td>filetype:pdf</td>
+<td>返回特定文件扩展名的结果</td>
+</tr>
+<tr>
+<td>intitle</td>
+<td>intitle:admin</td>
+<td>返回标题中包含指定单词的结果</td>
+</tr>
+<tr>
+<td>有关谷歌黑客的更多信息，请访问：  <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Google_hacking">https://en.wikipedia.org/wiki/Google_hacking</a></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h5 id="开源情报-Wappalyzer"><a href="#开源情报-Wappalyzer" class="headerlink" title="开源情报-Wappalyzer"></a>开源情报-Wappalyzer</h5><p>Wappalyzer ( <a target="_blank" rel="noopener" href="https://www.wappalyzer.com/">https://www.wappalyzer.com/</a> ) 是一个在线工具和浏览器扩展，可帮助识别网站使用的技术，例如框架、内容管理系统 ( CMS )、支付处理器等等，甚至还可以找到版本号。</p>
+<h5 id="开源情报-Wayback-Machine"><a href="#开源情报-Wayback-Machine" class="headerlink" title="开源情报-Wayback Machine"></a>开源情报-Wayback Machine</h5><p>Wayback Machine ( <a target="_blank" rel="noopener" href="https://archive.org/web/">https://archive.org/web/</a> ) 是一个可追溯到 90 年代末的网站历史档案。您可以搜索域名，它会显示该服务抓取网页和保存内容的所有时间。此服务可帮助您发现当前网站上可能仍活跃的旧页面。</p>
+<h5 id="开源情报–Github"><a href="#开源情报–Github" class="headerlink" title="开源情报–Github"></a>开源情报–Github</h5><p>Git是一个 版本控制系统，可跟踪项目中文件的更改。团队 合作更容易，因为你可以看到每个团队成员正在编辑的内容以及他们对文件所做的更改。当用户完成更改后，他们会通过一条消息提交更改，然后将其推送回中心位置（存储库），以便其他用户将这些更改拉取到本地机器上。GitHub 是互联网上的 Git 托管版本。存储库可以设置为公共或私有，并具有各种访问控制。你可以使用 GitHub 的搜索功能查找公司名称或网站名称，以尝试找到属于你的目标的存储库。一旦发现，你就可以访问源代码、密码或其他你尚未找到的内容。</p>
+<h5 id="OSINT-S3-存储桶"><a href="#OSINT-S3-存储桶" class="headerlink" title="OSINT -S3 存储桶"></a>OSINT -S3 存储桶</h5><p>S3 存储桶是 Amazon AWS 提供的存储服务，允许用户在云中保存文件甚至静态网站内容，并通过 HTTP 和 HTTPS 访问。文件所有者可以设置访问权限，使文件公开、私有甚至可写。有时这些访问权限设置不正确，会无意中允许访问不应向公众开放的文件。S3 存储桶的格式为 http(s):&#x2F;&#x2F; <strong>{name}.s3.amazonaws.com</strong> <a target="_blank" rel="noopener" href="http://s3.amazonaws.com/"><strong>，</strong></a> 其中 {name} 由所有者决定，例如 <a target="_blank" rel="noopener" href="http://tryhackme-assets.s3.amazonaws.com/">tryhackme-assets.s3.amazonaws.com</a>。S3 存储桶可以通过多种方式发现，例如在网站的页面源代码、GitHub 存储库中查找 URL，甚至可以自动化该过程。一种常见的自动化方法是使用公司名称，后跟常用术语，例如 <strong>{name}</strong> -assets、  <strong>{name}</strong> -www、  <strong>{name}</strong> -public、  <strong>{name}</strong> -private 等。<br>一种常见的自动化发现S3 Buckets的方法是：使用公司名称后跟常用术语自行拼接url，例如 {name}-assets、{name}-www、{name}-public、{name}-private 等，后面跟上.s3.amazonaws.com进行url拼接即可。</p>
+<h5 id="自动发现"><a href="#自动发现" class="headerlink" title="自动发现"></a>自动发现</h5><p>自动发现是使用工具而不是手动发现内容的过程。此过程是自动化的，因为它通常包含数百、数千甚至数百万个对 Web 服务器的请求。这些请求检查网站上是否存在文件或目录，使我们能够访问我们之前不知道存在的资源。此过程是通过使用名为单词列表的资源实现的。<br>单词表只是包含常用单词长列表的文本文件；它们可以涵盖许多不同的用例。例如，密码单词表将包含最常用的密码，而我们正在寻找内容，因此我们需要一个包含最常用目录和文件名的列表。THM AttackBox 上预装的单词表的一个极好的资源是Daniel   Miessler 策划的<a target="_blank" rel="noopener" href="https://github.com/danielmiessler/SecLists">https://github.com/danielmiessler/SecLists 。</a><br><strong>自动化工具</strong>       ffuf、dirb 和 gobuster<br><strong>使用 ffuf：</strong>    user@machine$ ffuf -w &#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;SecLists&#x2F;Discovery&#x2F;Web-Content&#x2F;common.txt -u <a target="_blank" rel="noopener" href="http://10.10.92.122/FUZZ">http://10.10.92.122/FUZZ</a><br><strong>使用 dirb：</strong>    user@machine$ dirb <a target="_blank" rel="noopener" href="http://10.10.92.122/">http://10.10.92.122/</a> &#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;SecLists&#x2F;Discovery&#x2F;Web-Content&#x2F;common.txt<br><strong>使用Gobuster：</strong>     user@machine$ gobuster dir –url <a target="_blank" rel="noopener" href="http://10.10.92.122/">http://10.10.92.122/</a> -w &#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;SecLists&#x2F;Discovery&#x2F;Web-Content&#x2F;common.txt</p>
+<h4 id="子域名枚举"><a href="#子域名枚举" class="headerlink" title="子域名枚举"></a>子域名枚举</h4><h5 id="Brief"><a href="#Brief" class="headerlink" title="Brief"></a>Brief</h5><p>三种不同的子域名枚举方法：暴力破解、OSINT（开源情报）和虚拟主机。</p>
+<h5 id="OSINT-SSL-TLS证书"><a href="#OSINT-SSL-TLS证书" class="headerlink" title="OSINT-SSL&#x2F;TLS证书"></a>OSINT-SSL&#x2F;TLS证书</h5><p>当 CA（证书颁发机构）为域名创建 SSL&#x2F;TLS（安全套接字层&#x2F;传输层安全性）证书时，CA 会参与所谓的“证书透明度 (CT) 日志”。这些是针对域名创建的每个 SSL&#x2F;TLS 证书的公开访问日志。证书透明度日志的目的是阻止恶意和意外制作的证书被使用。我们可以利用这项服务来发现属于某个域名的子域名，https  <a target="_blank" rel="noopener" href="http://crt.sh/">:&#x2F;&#x2F;crt.sh</a> 和 <a target="_blank" rel="noopener" href="https://ui.ctsearch.entrust.com/ui/ctsearchui">https://ui.ctsearch.entrust.com/ui/ctsearchui等网站</a> 提供了可搜索的证书数据库，其中显示当前和历史结果。</p>
+<h5 id="OSINT-搜索引擎"><a href="#OSINT-搜索引擎" class="headerlink" title="OSINT-搜索引擎"></a>OSINT-搜索引擎</h5><p> 使用 Google 等网站上的高级搜索方法（例如 site: 过滤器）可以缩小搜索结果范围。例如，“-site:<a target="_blank" rel="noopener" href="http://www.domain.com/">www.domain.com</a> site:*.domain.com”将仅包含指向域名 domain.com 的结果，但排除指向 <a target="_blank" rel="noopener" href="http://www.domain.com/">www.domain.com</a> 的任何链接；因此，它仅向我们显示属于 domain.com 的子域名。</p>
+<h5 id="DNS暴力破解"><a href="#DNS暴力破解" class="headerlink" title="DNS暴力破解"></a>DNS暴力破解</h5><p>枚举是一种从预定义的常用子域列表中尝试数十、数百、数千甚至数百万个不同的可能子域的方法。由于此方法需要大量请求，因此我们使用工具将其自动化以加快该过程。使用名为 dnsrecon 的工具来执行此操作。<br>user@thm:~$ dnsrecon -t brt -d acmeitsupport.thm</p>
+<h5 id="开源情报-Sublist3r"><a href="#开源情报-Sublist3r" class="headerlink" title="开源情报-Sublist3r"></a>开源情报-Sublist3r</h5><p>为了加快OSINT子域名发现的进程，我们可以借助 <a target="_blank" rel="noopener" href="https://github.com/aboul3la/Sublist3r">Sublist3r</a>等工具自动执行上述方法<br>user@thm:~$ .&#x2F;sublist3r.py -d acmeitsupport.thm</p>
+<h5 id="虚拟主机"><a href="#虚拟主机" class="headerlink" title="虚拟主机"></a>虚拟主机</h5><p>某些子域名并不总是托管在可公开访问的 DNS 结果中，例如 Web 应用程序或管理门户的开发版本。相反，DNS 记录可以保存在私有 DNS 服务器上，或记录在开发人员机器上的 &#x2F;etc&#x2F;hosts 文件（对于 Windows 用户，则为 c:\windows\system32\drivers\etc\hosts 文件）中，该文件将域名映射到 IP 地址。<br>，因此服务器可以从 <strong>Host</strong> 标头中知道客户端想要哪个网站。我们可以利用此 Host 标头对其进行更改并监控响应，以查看是否发现了新网站。<br>DNS Bruteforce 类似，我们可以使用常用子域名的单词列表来自动化此过程。<br>对 Acme IT Support 机器尝试以下命令，尝试发现新的子域。<br>user@machine$ ffuf -w &#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;SecLists&#x2F;Discovery&#x2F;DNS&#x2F;namelist.txt -H “Host: FUZZ.acmeitsupport.thm” -u <a target="_blank" rel="noopener" href="http://machine_ip/">http://MACHINE_IP</a><br><strong>-w</strong>开关指定我们要使用的单词列表。**-H<strong>开关添加&#x2F;编辑标头（在本例中为 Host 标头），我们在子域名通常所在的空间中设置了</strong>FUZZ**关键字，我们将在此处尝试单词列表中的所有选项。<br>上述命令总是会产生有效结果，所以我们需要过滤输出。我们可以通过使用-fs开关的页面大小结果来做到这一点。编辑以下命令，将 {size} 替换为上一个结果中出现次数最多的大小值<br>ser@machine$ ffuf -w &#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;SecLists&#x2F;Discovery&#x2F;DNS&#x2F;namelist.txt -H “Host: FUZZ.acmeitsupport.thm” -u <a target="_blank" rel="noopener" href="http://machine_ip/">http://MACHINE_IP</a> -fs {size}<br>告诉 ffuf 忽略任何指定大小的结果</p>
+<h4 id="身份验证绕过"><a href="#身份验证绕过" class="headerlink" title="身份验证绕过"></a>身份验证绕过</h4><h5 id="用户名枚举"><a href="#用户名枚举" class="headerlink" title="用户名枚举"></a>用户名枚举</h5><p>如果您尝试输入用户名 <strong>admin</strong> 并在其他表单字段中填写虚假信息，您将看到我们收到错误消息 <strong>具有此用户名的帐户已存在</strong>。我们可以利用此错误消息的存在，使用下面的 ffuf 工具生成已在系统上注册的有效用户名列表。ffuf 工具使用常用用户名列表来检查是否有任何匹配项。<br>user@tryhackme$ ffuf -w &#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;SecLists&#x2F;Usernames&#x2F;Names&#x2F;names.txt -X POST -d “username&#x3D;FUZZ&amp;email&#x3D;x&amp;password&#x3D;x&amp;cpassword&#x3D;x” -H “Content-Type: application&#x2F;x-www-form-urlencoded” -u <a target="_blank" rel="noopener" href="http://10.10.35.238/customers/signup">http://10.10.35.238/customers/signup</a> -mr “username already exists”<br><code>-w</code>参数选择了计算机上包含我们要检查是否存在的用户名列表的文件位置。参数<code>-X</code>指定请求方法，默认情况下这将是一个 GET 请求，但在我们的例子中它是一个 POST 请求。参数<code>-d</code>指定我们要发送的数据。在我们的例子中，我们有字段 username、email、password 和 cpassword。我们将用户名的值设置为<strong>FUZZ</strong>。在 ffuf 工具中， FUZZ 关键字表示来自我们的单词表的内容将插入到请求的哪个位置。参数<code>-H</code>用于向请求添加额外的标头。在这个例子中，我们设置了，<code>Content-Type</code> 这样 Web 服务器就知道我们正在发送表单数据。参数<code>-u</code>指定我们发出请求的 URL，最后，<code>-mr</code>参数是我们正在寻找的页面上的文本，以验证我们是否找到了有效的用户名。<br>ffuf 工具通过从<a target="_blank" rel="noopener" href="https://github.com/ffuf/ffuf">https://github.com/ffuf/ffuf</a>下载到本地安装，建一个 名为 valid_usernames.txt 的文件并添加您使用 ffuf 找到的用户名</p>
+<p>ffuf -w &#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;seclists&#x2F;Usernames&#x2F;Names&#x2F;names.txt -X POST -d “username&#x3D;FUZZ&amp;email&#x3D;x&amp;password&#x3D;x&amp;cpassword&#x3D;x” -H “Content-Type: application&#x2F;x-www-form-urlencoded” -u <a target="_blank" rel="noopener" href="http://10.10.35.238/customers/signup">http://10.10.35.238/customers/signup</a> -mr “username already exists”</p>
+<h5 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h5><p>将上述任务的用户名放入valid_usernames.txt文件进行爆破密码<br>ffuf -w valid_usernames.txt:W1,&#x2F;usr&#x2F;share&#x2F;wordlists&#x2F;SecLists&#x2F;Passwords&#x2F;Common-Credentials&#x2F;10-million-password-list-top-100.txt:W2 -X POST -d “username&#x3D;W1&amp;password&#x3D;W2” -H “Content-Type: application&#x2F;x-www-form-urlencoded” -u <a target="_blank" rel="noopener" href="http://10.10.35.238/customers/login">http://10.10.35.238/customers/login</a> -fc 200</p>
+<p><strong>FUZZ</strong>关键字来选择在请求中插入单词列表中的数据的位置，但由于我们使用了多个单词列表，因此我们必须指定自己的 FUZZ 关键字。在本例中，我们选择了<code>W1</code>有效用户名列表和<code>W2</code>将尝试的密码列表。多个单词列表再次使用参数指定，<code>-w</code>但用逗号分隔。对于肯定匹配，我们使用<code>-fc</code>参数来检查除 200 之外的HTTP状态代码。</p>
+<h5 id="逻辑缺陷"><a href="#逻辑缺陷" class="headerlink" title="逻辑缺陷"></a>逻辑缺陷</h5><p>身份验证过程会包含逻辑缺陷。逻辑缺陷是指应用程序的典型逻辑路径被黑客绕过、规避或操纵。逻辑缺陷可能存在于网站的任何区域，<br>下面的模拟代码示例检查客户端访问的路径是否以 &#x2F;admin 开头，如果是，则进一步检查客户端是否确实是管理员。如果页面不是以 &#x2F;admin 开头，则向客户端显示该页面。  </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>( url.<span class="title function_ invoke__">substr</span>(<span class="number">0</span>,<span class="number">6</span>) === <span class="string">&#x27;/admin&#x27;</span>) &#123;</span><br><span class="line">    <span class="comment"># Code to check user is an admin</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment"># View Page</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>述 PHP 代码示例使用了三个等号，因此它会在字符串中寻找精确匹配项，包括相同的字母大小写。该代码存在逻辑缺陷，因为未经身份验证的用户请求 <strong>&#x2F;adMin</strong> 时不会检查其权限，也不会向其显示页面，从而完全绕过身份验证检查。</p>
+<p>将检查  Acme IT 支持网站 ( <a target="_blank" rel="noopener" href="http://10.10.224.112/customers/reset">http://10.10.224.112/customers/reset ) 的</a>“重置密码”功能。我们看到一个表单，要求输入与我们希望执行密码重置的帐户关联的电子邮件地址。如果输入了无效的电子邮件，您将收到错误消息“未从提供的电子邮件地址找到帐户”。将使用已接受的电子邮件地址 <a href="mailto:&#x72;&#x6f;&#x62;&#101;&#114;&#116;&#x40;&#x61;&#x63;&#109;&#x65;&#x69;&#116;&#115;&#x75;&#112;&#112;&#111;&#x72;&#x74;&#46;&#x74;&#x68;&#x6d;">&#x72;&#x6f;&#x62;&#101;&#114;&#116;&#x40;&#x61;&#x63;&#109;&#x65;&#x69;&#116;&#115;&#x75;&#112;&#112;&#111;&#x72;&#x74;&#46;&#x74;&#x68;&#x6d;</a>。然后，我们将看到表单的下一个阶段，即要求输入与此登录电子邮件地址关联的用户名。如果我们输入 robert 作为用户名并按下“检查用户名”按钮，您将收到一条确认消息，提示您将向 <a href="mailto:&#114;&#x6f;&#98;&#101;&#114;&#116;&#x40;&#97;&#x63;&#109;&#101;&#105;&#116;&#x73;&#x75;&#112;&#112;&#x6f;&#x72;&#116;&#46;&#x74;&#x68;&#109;">&#114;&#x6f;&#98;&#101;&#114;&#116;&#x40;&#97;&#x63;&#109;&#101;&#105;&#116;&#x73;&#x75;&#112;&#112;&#x6f;&#x72;&#116;&#46;&#x74;&#x68;&#109;</a> 发送密码重置电子邮件。<br>在重置电子邮件流程的第二步中，用户名在 POST 字段中提交给 Web 服务器，电子邮件地址作为 GET 字段在查询字符串请求中发送curl ‘<a target="_blank" rel="noopener" href="http://10.10.224.112/customers/reset?email=robert@acmeitsupport.thm">http://10.10.224.112/customers/reset?email=robert%40acmeitsupport.thm</a>‘ -H ‘Content-Type: application&#x2F;x-www-form-urlencoded’ -d ‘username&#x3D;robert’<br>-H标志向请求添加附加标头。在本例中，我们将设置为<code>Content-Type</code>，<code>application/x-www-form-urlencoded</code>这让 Web 服务器知道我们正在发送表单数据，以便它正确理解我们的请求。</p>
+<p>在应用程序中，使用查询字符串检索用户帐户，但稍后在应用程序逻辑中，使用PHP变量中的数据发送密码重置电子邮件<code>$_REQUEST</code>。HP变量是一个数组， <code>$_REQUEST</code>其中包含从查询字符串和 POST 数据接收的数据。如果查询字符串和 POST 数据使用相同的键名，则此变量的应用程序逻辑倾向于 POST 数据字段而不是查询字符串，因此如果我们向 POST 表单添加另一个参数，我们就可以控制密码重置电子邮件的发送位置。curl ‘<a target="_blank" rel="noopener" href="http://10.10.224.112/customers/reset?email=robert@acmeitsupport.thm">http://10.10.224.112/customers/reset?email=robert%40acmeitsupport.thm</a>‘ -H ‘Content-Type: application&#x2F;x-www-form-urlencoded’ -d ‘username&#x3D;robert&amp;email&#x3D;<a href="mailto:&#x61;&#116;&#x74;&#x61;&#x63;&#107;&#x65;&#x72;&#x40;&#104;&#97;&#x63;&#x6b;&#x65;&#114;&#x2e;&#x63;&#x6f;&#x6d;">&#x61;&#116;&#x74;&#x61;&#x63;&#107;&#x65;&#x72;&#x40;&#104;&#97;&#x63;&#x6b;&#x65;&#114;&#x2e;&#x63;&#x6f;&#x6d;</a>‘<br>您需要在 Acme IT 支持客户部分创建一个帐户，这样您就可以获得一个唯一的电子邮件地址，可用于创建支持凭单。电子邮件地址的格式为<code>&#123;username&#125;</code><strong>@customer.acmeitsupport.thm</strong>重新运行<strong>Curl 请求 2</strong>，但电子邮件字段中输入 @acmeitsupport.thm，您将在您的帐户上创建一张票据，其中包含一个链接，可让您以 Robert 身份登录。使用 Robert 的帐户，您可以查看他们的支持票据并显示一个标记。curl ‘<a target="_blank" rel="noopener" href="http://10.10.224.112/customers/reset?email=robert@acmeitsupport.thm">http://10.10.224.112/customers/reset?email=robert@acmeitsupport.thm</a>‘ -H ‘Content-Type: application&#x2F;x-www-form-urlencoded’ -d ‘username&#x3D;robert&amp;email&#x3D;{username}@customer.acmeitsupport.thm’</p>
+<h5 id="Cookie篡改"><a href="#Cookie篡改" class="headerlink" title="Cookie篡改"></a>Cookie篡改</h5><p>某些 Cookie 的内容可以是纯文本，其作用显而易见。例如，如果这些是成功登录后设置的 Cookie：<br>设置 Cookie：logged_in&#x3D;true；Max-Age&#x3D;3600；路径&#x3D;&#x2F;<br>设置 Cookie：admin&#x3D;false；Max-Age&#x3D;3600；路径&#x3D;&#x2F;<br>cookie (logged_in)，它似乎控制用户当前是否登录，另一个 cookie (admin)，它控制访问者是否具有管理员权限。使用此逻辑，如果我们要更改 cookie 的内容并发出请求，我们将能够更改我们的权限。<br>先请求目标页面     curl <a target="_blank" rel="noopener" href="http://10.10.224.112/cookie-test">http://10.10.224.112/cookie-test</a><br>返回了一条消息：未登录<br>现在我们将发送另一个请求，将logged_in cookie设置为true，将admin cookie设置为false<br>curl -H “Cookie: logged_in&#x3D;true; admin&#x3D;false” <a target="_blank" rel="noopener" href="http://10.10.224.112/cookie-test">http://10.10.224.112/cookie-test</a><br>收到消息：以用户身份登录<br>最后，我们将发送最后一个请求，将logged_in和admin cookie都设置为true：<br>curl -H “Cookie: logged_in&#x3D;true; admin&#x3D;true” <a target="_blank" rel="noopener" href="http://10.10.224.112/cookie-test">http://10.10.224.112/cookie-test</a></p>
+<p>有时，cookie 值看起来像一长串随机字符；这些被称为哈希，是原始文本的不可逆表示。</p>
+<table>
+<thead>
+<tr>
+<th>原始字符串</th>
+<th>哈希方法</th>
+<th>输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>md5</td>
+<td>c4ca4238a0b923820dcc509a6f75849b</td>
+</tr>
+<tr>
+<td>1</td>
+<td>SHA-256</td>
+<td>6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b</td>
+</tr>
+<tr>
+<td>1</td>
+<td>SHA-512</td>
+<td>4dff4ea340f0a823f15d3f4f01ab62eae0e5da579ccb851f8db9dfe84c58b2b37b89903a740e1ee172da793a6e79d560e5f7f9bd058a12a280433ed6fa46510a</td>
+</tr>
+<tr>
+<td>1</td>
+<td>sha1</td>
+<td>356a192b7913b04c54574d18c28d46e6395428ab</td>
+</tr>
+</tbody></table>
+<p>即使哈希不可逆，每次都会产生相同的输出，这对我们很有帮助，因为 <a target="_blank" rel="noopener" href="https://crackstation.net/">https://crackstation.net/</a>等服务 保存着数十亿个哈希及其原始字符串的数据库。</p>
+<p>编码与哈希类似，因为它会创建看似随机的文本字符串，但实际上，编码是可逆的。<br>设置 Cookie：会话&#x3D;<code>eyJpZCI6MSwiYWRtaW4iOmZhbHNlfQ ==</code>；最大年龄&#x3D;3600；路径&#x3D;&#x2F;<br>符串 base64 解码后的值为 <strong>{“id”:1,”admin”: false}，</strong> 然后我们可以将其再次编码回 base64 编码，但将 admin 值设置为 true，这样我们就有了管理员访问权限。</p>
+<h4 id="IDOR"><a href="#IDOR" class="headerlink" title="IDOR"></a>IDOR</h4><h5 id="什么是IDOR"><a href="#什么是IDOR" class="headerlink" title="什么是IDOR"></a>什么是IDOR</h5><p>代表不安全的直接对象引用，是一种访问控制漏洞。当 Web 服务器接收用户提供的输入以检索对象（文件、数据、文档）时，可能会出现此类漏洞，对输入数据过于信任，并且服务器端没有对其进行验证以确认请求的对象是否属于请求它的用户。</p>
+<h5 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h5><p>刚刚注册了一项在线服务，并且想要更改您的个人资料信息。您单击的链接转到 <a target="_blank" rel="noopener" href="http://online-service.thm/profile?user_id=1305">http://online-service.thm/profile?user_id=1305</a><br>尝试将 user_id 值更改为 1000（<a target="_blank" rel="noopener" href="http://online-service.thm/profile?user_id=1000%EF%BC%89%EF%BC%8C%E4%BB%A4%E6%82%A8%E6%83%8A%E8%AE%B6%E7%9A%84%E6%98%AF%EF%BC%8C%E6%82%A8%E7%8E%B0%E5%9C%A8%E5%8F%AF%E4%BB%A5%E7%9C%8B%E5%88%B0%E5%8F%A6%E4%B8%80%E4%B8%AA%E7%94%A8%E6%88%B7%E7%9A%84%E4%BF%A1%E6%81%AF%E3%80%82%E6%82%A8%E7%8E%B0%E5%9C%A8%E5%8F%91%E7%8E%B0%E4%BA%86%E4%B8%80%E4%B8%AAIDOR%E6%BC%8F%E6%B4%9E%EF%BC%81">http://online-service.thm/profile?user_id=1000），令您惊讶的是，您现在可以看到另一个用户的信息。您现在发现了一个IDOR漏洞！</a></p>
+<h5 id="在编码ID中查找IDOR"><a href="#在编码ID中查找IDOR" class="headerlink" title="在编码ID中查找IDOR"></a>在编码ID中查找IDOR</h5><p>通过发布数据、查询字符串或 cookie 在页面之间传递数据时，Web 开发人员通常会首先获取原始数据并对其进行编码。编码将二进制数据更改为 ASCII 字符串，通常使用字符<code>a-z, A-Z, 0-9 and =</code> 进行填充。</p>
+<h5 id="在散列ID中查找IDOR"><a href="#在散列ID中查找IDOR" class="headerlink" title="在散列ID中查找IDOR"></a>在散列ID中查找IDOR</h5><p>哈希 ID 的处理比编码 ID 稍微复杂一些，但它们可能遵循可预测的模式，例如是整数值的哈希版本。例如，如果使用 md5 哈希，ID 号 123 将变成 202cb962ac59075b964b07152d234b70。<br>将任何发现的哈希值放入诸如<a target="_blank" rel="noopener" href="https://crackstation.net/">https://crackstation.net/</a>（其拥有数十亿个哈希值结果的数据库）之类的 Web 服务中，看看我们是否可以找到任何匹配项。</p>
+<h5 id="在不可预测的ID中查找IDOR"><a href="#在不可预测的ID中查找IDOR" class="headerlink" title="在不可预测的ID中查找IDOR"></a>在不可预测的ID中查找IDOR</h5><p>如果使用上述方法无法检测到 ID，那么一种出色的 IDOR 检测方法是创建两个帐户并在它们之间交换 ID 号。如果您可以使用其他用户的 ID 号查看他们的内容，同时仍使用其他帐户登录（或根本没有登录），则您发现了一个有效的IDOR漏洞。</p>
+<h5 id="IDOR位于哪里"><a href="#IDOR位于哪里" class="headerlink" title="IDOR位于哪里"></a>IDOR位于哪里</h5><p>可能是您的浏览器通过 AJAX 请求加载的内容，也可能是您在 JavaScript 文件中找到的引用内容。<br>有时端点可能有一个未引用的参数，该参数可能在开发过程中有用，并被推送到生产中。例如，您可能会注意到对 <strong>&#x2F;user&#x2F;details 的</strong>调用 显示了您的用户信息（通过您的会话进行身份验证）。但是通过一种称为参数挖掘的攻击，您会发现一个名为<strong>user_id 的</strong>参数，您可以使用它来显示其他用户的信息，例如**&#x2F;user&#x2F;details?user_id&#x3D;123**。</p>
+<h5 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h5><p>登录后，单击 <strong>“您的帐户”</strong> 选项卡。<br><strong>您的帐户</strong>部分  可让您更改用户名、电子邮件地址和密码等信息。您会注意到用户名和电子邮件字段已预先填写了您的信息。<br>我们首先来研究一下这些信息是如何预填充的。如果你打开浏览器开发者工具，选择网络选项卡，然后刷新页面，你会看到对路径为 &#x2F;api&#x2F;v1&#x2F;customer?id&#x3D; 的端点的调用<code>&#123;user_id&#125;</code>。</p>
+
+        
+      </div>
+
+         
+    </div>
+    
+     
+  </div>
+  
+    
+<nav id="article-nav">
+  <a class="article-nav-btn left  disabled "
+     >
+    <i class="fa-solid fa-angle-left"></i>
+    <p class="title-text">
+        
+    </p>
+  </a>
+  <a class="article-nav-btn right "
+    
+      href="/2024/09/02/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80/"
+      title="网络安全基础"
+     >
+
+    <p class="title-text">
+      
+        网络安全基础
+        
+    </p>
+    <i class="fa-solid fa-angle-right"></i>
+  </a>
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+    </div>
+    <div id="footer-wrapper">
+      <footer id="footer">
+  
+  <div id="footer-info" class="inner">
+    
+    &copy; 2024 T1@n<br>
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & Theme <a target="_blank" rel="noopener" href="https://github.com/saicaca/hexo-theme-vivia">Vivia</a>
+  </div>
+</footer>
+
+    </div>
+    <div class="back-to-top-wrapper">
+    <button id="back-to-top-btn" class="back-to-top-btn hide" onclick="topFunction()">
+        <i class="fa-solid fa-angle-up"></i>
+    </button>
+</div>
+
+<script>
+    function topFunction() {
+        window.scroll({ top: 0, behavior: 'smooth' });
+    }
+    let btn = document.getElementById('back-to-top-btn');
+    function scrollFunction() {
+        if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+            btn.classList.remove('hide')
+        } else {
+            btn.classList.add('hide')
+        }
+    }
+    window.onscroll = function() {
+        scrollFunction();
+    }
+</script>
+
+  </div>
+  <script src="/js/light-dark-switch.js"></script>
+</body>
+</html>
